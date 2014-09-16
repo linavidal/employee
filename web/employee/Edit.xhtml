@@ -1,0 +1,67 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui">
+    
+    <ui:composition template="/template.xhtml">
+        <ui:define name="title">Crear empleado</ui:define>
+        <ui:define name="body"> Default Body
+        <h1> Editar Empleados</h1>
+        <h:form>
+            <h:panelGrid columns="3">
+                <h:outputLabel value="ID"></h:outputLabel>
+                <h:inputText id="idInputText" required="true"
+                             requiredMessage="Por favor ingrese un ID"
+                             value="#{employeeController.empleadoActual.id}"
+                             maxlength="3" disabled="true">
+                </h:inputText>
+                <h:message for="idInputText" styleClass="error"/>
+
+                <h:outputLabel value="nombre"></h:outputLabel>
+                <h:inputText id="nombreInputText" required="true"
+                             requiredMessage="Por favor ingrese el nombre"
+                             value="#{employeeController.empleadoActual.firstName}"
+                             maxlength="20">
+                </h:inputText>
+                <h:message for="nombreInputText" styleClass="error"/>
+
+                <h:outputLabel value="Apellido"></h:outputLabel>
+                <h:inputText id="apellidoInputText" required="true"
+                             requiredMessage="Por favor ingrese el apellido"
+                             value="#{employeeController.empleadoActual.lastName}"
+                             maxlength="20">
+                </h:inputText>
+                <h:message for="apellidoInputText" styleClass="error"/>
+
+                <h:outputLabel value="Salario"></h:outputLabel>
+                <h:inputText id="salarioInputText" required="true"
+                             requiredMessage="Por favor ingrese el salario"
+                             value="#{employeeController.empleadoActual.salary}">                    
+                </h:inputText>
+                <h:message for="salarioInputText" styleClass="error"/>
+
+                <h:outputLabel value="Fecha Nacimiento"></h:outputLabel>
+                <h:inputText id="fechaInputText" required="true"
+                             requiredMessage="Por favor ingrese fecha de nacimiento"
+                             value="#{employeeController.empleadoActual.birthDate}"
+                             >
+                    <f:convertDateTime pattern="MMM d, yyyy"/>
+                    
+                </h:inputText>
+                <h:message for="fechaInputText" styleClass="error"/>
+
+
+            </h:panelGrid>
+            <p:commandButton value="Guardar" action="#{employeeController.updateEmployee}"/>
+            <p:button value="Ver" outcome="View"/>
+            <p:button value="Cancelar" outcome="List"/>
+            <br/>
+            <p:button value="Inicio" outcome="/index"/>
+        </h:form>
+     </ui:define>
+        </ui:composition>
+</html>
+

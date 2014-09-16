@@ -1,0 +1,74 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui">
+    <ui:composition template="/template.xhtml">
+        <ui:define name="title">Crear empleado</ui:define>
+        <ui:define name="body"> Default Body
+            <h1>Lista Empleados</h1>
+            <h:form>
+                <p>
+                    <h:button value="inicio" outcome="/index"/>
+                    <p:commandButton value="Agregar Empleado" action="#{employeeController.prepareCreate}"/></p>
+
+                <p:dataTable value="#{employeeController.listaEmpleados}" var="employee"
+                             rows="10" id="employeeTable"
+                             paginator="true"
+                             paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                             rowsPerPageTemplate="5,10,15">
+                    <p:column filterBy="#{employee.id}">
+
+                        <f:facet name="header">ID</f:facet>
+                        <h:outputText value="#{employee.id}"/>
+                    </p:column>
+                    <p:column filterBy="#{employee.firstName}" >
+
+                        <f:facet name="header">Nombre</f:facet>
+                        <h:outputText value="#{employee.firstName}"/>
+                    </p:column>
+                    <p:column filterBy="#{employee.lastName}">
+
+                        <f:facet name="header">Apellido</f:facet>
+                        <h:outputText value="#{employee.lastName}"/>
+                    </p:column>
+                    <p:column>
+                        <f:facet name="header">Fecha de Nacimiento</f:facet>
+                        <h:outputText value="#{employee.birthDate}">
+                            <f:convertDateTime pattern="MMM d, yyyy"/>
+                        </h:outputText>
+                    </p:column>
+                    <p:column filterBy="#{employee.salary}">
+
+                        <f:facet name="header">Salario</f:facet>
+                        <h:outputText value="#{employee.salary}">
+                            <f:convertNumber type="currency"/>
+                        </h:outputText>
+                    </p:column>
+                    <p:column>
+                        <p:commandButton icon="ui-icon-search" action="#{employeeController.prepareView}">
+                            <f:setPropertyActionListener value="#{employee}" target="#{employeeController.empleadoActual}"/>
+                        </p:commandButton>
+                        <p:commandButton icon="ui-icon-pencil" action="#{employeeController.prepareEdit}">
+
+                            <f:setPropertyActionListener value="#{employee}" target="#{employeeController.empleadoActual}"/>
+                        </p:commandButton>
+                        <p:commandButton  icon="ui-icon-trash" action="#{employeeController.deleteEmployee}"
+                                         process="@this" update="employeeTable">
+                            <p:confirm header="Confirmation" message="Are you sure?" icon="ui-icon-alert" />
+
+
+                            <f:setPropertyActionListener value="#{employee}" target="#{employeeController.empleadoActual}"/>
+                           
+                        </p:commandButton>
+                    </p:column>
+
+
+                </p:dataTable>
+            </h:form>
+        </ui:define>
+    </ui:composition>
+</html>
+

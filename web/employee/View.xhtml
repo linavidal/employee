@@ -1,0 +1,41 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui">
+    <ui:composition template="/template.xhtml">
+        <ui:define name="title">Crear empleado</ui:define>
+        <ui:define name="body"> Default Body
+            <h1>Ver Empleado</h1>
+            <h:form>
+                <h:panelGrid columns="2">
+                    <h:outputLabel value="ID"/>
+                    <h:inputText value = "#{employeeController.empleadoActual.id}" disabled="true"/>
+                    <h:outputLabel value="Nombres:"/>
+                    <h:inputText value = "#{employeeController.empleadoActual.firstName}" disabled="true"/>
+                    <h:outputLabel value="Apellidos:"/>
+                    <h:inputText value = "#{employeeController.empleadoActual.lastName}" disabled="true"/>
+                    <h:outputLabel value="Fecha de Nacimiento"/>
+                    <h:inputText value = "#{employeeController.empleadoActual.birthDate}" disabled="true">
+                        <f:convertDateTime pattern="MMM d,yyyy"/>
+                    </h:inputText>
+                    <h:outputLabel value="Salary"/>
+                    <h:inputText value = "#{employeeController.empleadoActual.salary}" disabled="true">
+                        <f:convertNumber type="currency"/>
+                    </h:inputText>
+                </h:panelGrid>
+                <p:button value="Editar" outcome="/employee/Edit"/>
+                <p:commandButton value="Eliminar"
+                                 onclick="return confirm('Esta seguro que desea eliminar el empleado')"
+                                 action="#{employeeController.deleteEmployee}"/>
+                <p:commandButton value="Crear" action="#{employeeController.prepareCreate}"/>
+                <br/>
+                <p:button value="Inicio" outcome="/index"/>
+                <p:button value="Listar Empleados" outcome="List"/>
+            </h:form>
+        </ui:define>
+    </ui:composition>
+</html>
+
